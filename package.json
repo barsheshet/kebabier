@@ -1,6 +1,6 @@
 {
   "name": "kebaby",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "refactor js/ts projects to kebab-cased files and directories",
   "main": "index.js",
   "bin": "index.js",

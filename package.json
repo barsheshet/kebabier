@@ -1,0 +1,28 @@
+{
+  "name": "kebaby",
+  "version": "0.0.1",
+  "description": "refactor js/ts projects to kebab-cased files and directories",
+  "main": "index.js",
+  "bin": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barsheshet/kebaby.git"
+  },
+  "keywords": [
+    "kebab-case",
+    "param-case",
+    "refactor",
+    "convert",
+    "cli",
+    "tool"
+  ],
+  "author": "Guy Barsheshet",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/barsheshet/kebaby/issues"
+  },
+  "homepage": "https://github.com/barsheshet/kebaby#readme"
+}

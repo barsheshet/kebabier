@@ -20,7 +20,7 @@
     "tool"
   ],
   "author": "Guy Barsheshet",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/barsheshet/kebabier/issues"
   },

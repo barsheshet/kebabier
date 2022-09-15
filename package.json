@@ -1,15 +1,15 @@
 {
-  "name": "kebaby",
-  "version": "0.0.3",
-  "description": "refactor js/ts projects to kebab-cased files and directories",
+  "name": "kebabier",
+  "version": "0.0.2",
+  "description": "A CLI Tool to refactor Javascript/Typescript projects to use kebab-case naming convention of files and folders",
   "main": "index.js",
   "bin": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "engines": {
+    "node": ">=12"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/barsheshet/kebaby.git"
+    "url": "git+https://github.com/barsheshet/kebabier.git"
   },
   "keywords": [
     "kebab-case",
@@ -22,7 +22,7 @@
   "author": "Guy Barsheshet",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/barsheshet/kebaby/issues"
+    "url": "https://github.com/barsheshet/kebabier/issues"
   },
-  "homepage": "https://github.com/barsheshet/kebaby#readme"
+  "homepage": "https://github.com/barsheshet/kebabier#readme"
 }

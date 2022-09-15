@@ -1,4 +1,4 @@
-# Kebabier (Beta)
+# Kebabier 🍢 (Beta)
 
 ## What is this?
 

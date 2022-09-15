@@ -1,7 +1,7 @@
 {
   "name": "kebabier",
-  "version": "0.0.2",
-  "description": "A CLI Tool to refactor Javascript/Typescript projects to use kebab-case naming convention of files and folders",
+  "version": "0.0.3",
+  "description": "🍢 A CLI Tool to refactor Javascript/Typescript projects to use kebab-case naming convention of files and folders",
   "main": "index.js",
   "bin": "index.js",
   "engines": {

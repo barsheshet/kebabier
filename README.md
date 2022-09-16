@@ -1,8 +1,8 @@
-# Kebabier 🍢 (Beta)
+# kebabier
 
 ## What is this?
 
-Kebabier is a minimal, lean, and zero dependency CLI tool that helps refactor JavaScript/TypeScript projects to use [kebab-case naming convention](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) for files & folders.
+Kebabier is a minimal, zero dependency CLI tool that helps refactor JavaScript/TypeScript projects to use [kebab-case naming convention](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) for files & folders.
 
 ## Why?
 

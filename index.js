@@ -6,15 +6,13 @@ const childProcess = require('child_process');
 
 const exec = util.promisify(childProcess.exec);
 
-let rootDir = undefined;
+const TEMP_DIR = '___converted___';
 
-const tempDir = '___converted___';
+const IDENTIFIERS = [' from ', ' import(', ' require(', 'import '];
 
-const identifiers = [' from ', ' import(', ' require(', 'import '];
+const IGNORE = ['.DS_Store'];
 
-const ignore = ['.DS_Store'];
-
-const extensions = ['.tsx', '.ts', '.js'];
+const EXTENSIONS = ['.tsx', '.ts', '.js'];
 
 function isLowerCased(str) {
   return str.toLowerCase() === str;
@@ -30,17 +28,15 @@ function toKebabCase(str) {
 function convertFileContent(content) {
   const lines = content.split('\n');
   for (let i = 0; i < lines.length; i++) {
-    for (const identifier of identifiers) {
-      if (lines[i].includes(identifier)) {
-        if (!isLowerCased(lines[i])) {
-          const parts = lines[i].split(identifier);
-          const quote = parts[1].includes('"') ? '"' : "'";
-          const path = parts[1].substring(parts[1].indexOf(quote), parts[1].lastIndexOf(quote));
-          const convertedPath = toKebabCase(path);
-          parts[1] = parts[1].replace(path, convertedPath);
-          lines[i] = parts.join(identifier);
-          break;
-        }
+    for (const identifier of IDENTIFIERS) {
+      if (lines[i].includes(identifier) && !isLowerCased(lines[i])) {
+        const parts = lines[i].split(identifier);
+        const quote = parts[1].includes('"') ? '"' : "'";
+        const path = parts[1].substring(parts[1].indexOf(quote), parts[1].lastIndexOf(quote));
+        const convertedPath = toKebabCase(path);
+        parts[1] = parts[1].replace(path, convertedPath);
+        lines[i] = parts.join(identifier);
+        break;
       }
     }
   }
@@ -58,28 +54,28 @@ async function isGit() {
 
 function isDirExist(dir) {
   try {
-    fs.statSync(rootDir);
+    fs.statSync(dir);
   } catch (_err) {
     return false;
   }
   return true;
 }
 
-function kebabier(dir) {
+function kebabier(dir, rootDir) {
   let dirItems = fs.readdirSync(dir);
-  dirItems = dirItems.filter((i) => !ignore.includes(i) && !ignore.includes(path.extname(i)));
+  dirItems = dirItems.filter((i) => !IGNORE.includes(i) && !IGNORE.includes(path.extname(i)));
   for (const item of dirItems) {
     const fullPath = path.join(dir, item);
     const itemStat = fs.statSync(fullPath);
     if (itemStat.isDirectory()) {
-      kebabier(fullPath);
+      kebabier(fullPath, rootDir);
     } else {
       const convertedDir = toKebabCase(dir);
-      const destinationDir = convertedDir.replace(`${rootDir}/`, `${tempDir}/`);
+      const destinationDir = convertedDir.replace(`${rootDir}/`, `${TEMP_DIR}/`);
       fs.mkdirSync(destinationDir, { recursive: true });
       const convertedFileName = toKebabCase(item);
       const newFullPath = path.join(destinationDir, convertedFileName);
-      if (extensions.includes(path.extname(item))) {
+      if (EXTENSIONS.includes(path.extname(item))) {
         console.log('\x1b[33m%s\x1b[0m', `Converting file content: ${fullPath}`);
         const content = fs.readFileSync(fullPath, 'utf8');
         const convertedContent = convertFileContent(content);
@@ -94,21 +90,21 @@ function kebabier(dir) {
 
 (async () => {
   try {
-    rootDir = process.argv[2];
+    const rootDir = process.argv[2];
     if (!rootDir) {
       throw new Error('A directory to refactor must be provider as command argument!');
     }
     if (!isDirExist(rootDir)) {
       throw new Error(`Directory ${rootDir} doesn't exists!`);
     }
-    kebabier(`${rootDir}/`);
-    console.log('\x1b[36m%s\x1b[0m', `Renaming: ${tempDir} ===> ${rootDir}`);
+    kebabier(`${rootDir}/`, rootDir);
+    console.log('\x1b[36m%s\x1b[0m', `Renaming: ${TEMP_DIR} ===> ${rootDir}`);
     await exec(`rm -rf ${rootDir}`);
     if (await isGit()) {
       await exec('git add .');
-      await exec(`git mv ${tempDir} ${rootDir}`);
+      await exec(`git mv ${TEMP_DIR} ${rootDir}`);
     } else {
-      await exec(`mv ${tempDir} ${rootDir}`);
+      await exec(`mv ${TEMP_DIR} ${rootDir}`);
     }
     console.log('\x1b[42m', 'Kebabier Complete!');
   } catch (err) {

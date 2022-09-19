@@ -1,7 +1,7 @@
 {
   "name": "kebabier",
-  "version": "0.0.4",
-  "description": "🍢 A CLI Tool to refactor Javascript/Typescript projects to use kebab-case naming convention of files and folders",
+  "version": "0.0.0-development",
+  "description": "A CLI Tool to refactor Javascript/Typescript projects to use kebab-case naming convention of files and folders",
   "main": "index.js",
   "bin": "index.js",
   "engines": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/barsheshet/kebabier.git"
+    "url": "https://github.com/barsheshet/kebabier.git"
   },
   "keywords": [
     "kebab-case",
@@ -24,5 +24,22 @@
   "bugs": {
     "url": "https://github.com/barsheshet/kebabier/issues"
   },
-  "homepage": "https://github.com/barsheshet/kebabier#readme"
+  "homepage": "https://github.com/barsheshet/kebabier#readme",
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "semantic-release": "^19.0.5"
+  },
+  "scripts": {
+    "test": "mocha",
+    "semantic-release": "semantic-release"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

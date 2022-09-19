@@ -1,8 +1,7 @@
 name: Release
 on:
   workflow_run:
-#     workflows: ['Snyk Security Check', 'Tests']
-    workflows: []
+    workflows: ['Tests']
     branches: [main]
     types:
       - completed
